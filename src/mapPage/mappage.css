@@ -1,1 +1,14 @@
 @import '~antd/dist/antd.css';
+.cardSection {
+    width: 20.33%;
+    height: 100vh;
+    float: left;
+    background-color: #65cee2;
+    overflow-y: auto;
+}
+
+.card {
+    height: 100px;
+    margin: 10px;
+    border-radius: 10px;
+}

@@ -22,11 +22,11 @@ const FrontPage = () => {
                 <div className="card-div">
                     <Card className="card-css" hoverable={true} onClick={handleClickMapPage}>
                         <img className="image-Card-CSS" src={youngDude} alt="Graphic of young person" />
-                        <h2 className="path">Be The Driver!</h2>
+                        <h2>Be The Driver!</h2>
                     </Card>
-                    <Card className="card-css" hoverable={true}  onClick={handleClickRequestPage}>
+                    <Card className="card-css" hoverable={true} onClick={handleClickRequestPage}>
                         <img className="image-Card-CSS" src={oldMan} alt="Graphic of senior person" />
-                        <h2 className="path">I Need Assistance!</h2>
+                        <h2>I Need Assistance!</h2>
                     </Card>
                 </div>
             </div >
