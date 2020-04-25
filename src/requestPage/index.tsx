@@ -1,9 +1,9 @@
 import React from 'react';
-function requestPage() {
+function RequestPage() {
     return(
         <div>
             Request Page
         </div>
     )
 }
-export default requestPage;
+export default RequestPage;
