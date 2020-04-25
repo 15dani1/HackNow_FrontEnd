@@ -7,23 +7,6 @@ export default function MapSection() {
         lat: -82.351269,
         zoom: 17
     };
-    function print() {
-        axios({
-            'method': 'GET',
-            'url': 'https://dev.virtualearth.net/REST/v1/LocalSearch/',
-            'headers': {
-            },
-            'params': {
-                'query': 'grocery',
-                'userCircularMapView': '29.647377,-82.351269,5000',
-                'key': 'AoBKzt9SZBG4MjjEqZ38E0VigPst6O07EL26AIUiGfX36eGHqdG5j8KrcFeh144A'
-            },
-        }).then(res => {
-            console.log(res.data['resourceSets'][0]['resources']);
-            setGroceryLocs(res.data['resourceSets'][0]['resources']);
-            const persons = res.data;
-        })
-    }
     const Map = ReactMapboxGl({
         accessToken: "pk.eyJ1IjoiMTVkYW5pMSIsImEiOiJjazlmNWdvdG4wMGVvM2xubjdqcTducXM1In0.H7cu4oj3nkFtR23KeFEliQ"
     });
@@ -44,7 +27,6 @@ export default function MapSection() {
         }).then(res => {
             console.log(res.data['resourceSets'][0]['resources']);
             setGroceryLocs(res.data['resourceSets'][0]['resources']);
-            const persons = res.data;
         })
     }, []);
 
@@ -65,11 +47,8 @@ export default function MapSection() {
                     type="symbol"
                     id="marker"
                     layout={{ "icon-image": "vienna-u-bahn" }}
-                    onClick={print}
                 >
                     {groceryLocs.map(grocery => <Feature coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
-
-
                 </Layer>
             </Map>
         </div>
