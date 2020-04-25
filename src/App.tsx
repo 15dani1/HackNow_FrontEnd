@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from 'antd/es/button';
 import './App.css';
+import FrontPage from './FrontPage'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Button type="primary">Button</Button>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <FrontPage />
+  );
 }
 
 export default App;
