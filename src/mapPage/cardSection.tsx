@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 import './mappage.css'
 
-export default function CardSection() {
+export default function CardSection(props: any) {
     //const [locations, setlocations] = useState([{}]);
     //const [locations, setLocations] = useState([Array(100).keys()].map(i => { name: "yeet" }));
 
@@ -24,7 +24,9 @@ export default function CardSection() {
     // }, []);
     return (
         <div>
-                        <Card className='card' hoverable={true}>Test</Card>
+            {props.groceryLocs.map(groceryLoc => (
+                <Card className='card' hoverable={true} title={groceryLoc.name}><p>{groceryLoc.Address.formattedAddress}</p></Card>
+            ))}
             <Card className='card' hoverable={true}>Test</Card>
             <Card className='card' hoverable={true}>Test</Card>
             <Card className='card' hoverable={true}>Test</Card>

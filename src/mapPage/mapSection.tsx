@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import axios from 'axios';
-export default function MapSection() {
+
+
+export default function MapSection(props : any) {
     const mapSettings = {
         lng: 29.647377,
         lat: -82.351269,
@@ -12,7 +14,6 @@ export default function MapSection() {
     });
     Map.defaultProps.center = [mapSettings.lat, mapSettings.lng];
     Map.defaultProps.zoom = [mapSettings.zoom];
-    const [groceryLocs, setGroceryLocs] = useState([]);
     useEffect(() => {
         axios({
             'method': 'GET',
@@ -26,7 +27,7 @@ export default function MapSection() {
             },
         }).then(res => {
             console.log(res.data['resourceSets'][0]['resources']);
-            setGroceryLocs(res.data['resourceSets'][0]['resources']);
+            props.setGroceryLocs(res.data['resourceSets'][0]['resources']);
         })
     }, []);
 
@@ -48,7 +49,7 @@ export default function MapSection() {
                     id="marker"
                     layout={{ "icon-image": "vienna-u-bahn" }}
                 >
-                    {groceryLocs.map(grocery => <Feature coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
+                    {props.groceryLocs.map(grocery => <Feature coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
                 </Layer>
             </Map>
         </div>
