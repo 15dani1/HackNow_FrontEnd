@@ -2,3 +2,24 @@
 body {
     background-color: aqua;
 }
+
+.card-div {
+    height: 50%;
+    width: 70%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.card-css {
+    width: 45%;
+    height: 100%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    float: left;
+    box-shadow: 10px 10px 5px #888888;
+}
