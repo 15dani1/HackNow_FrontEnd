@@ -11,4 +11,15 @@
     height: 100px;
     margin: 10px;
     border-radius: 10px;
+    font-size: 10px;
+    word-wrap: break-word;
+}
+
+h1 {
+    font-size: 14px;
+}
+
+.leaderboard-card:hover {
+    background-color: greenyellow;
+    border-radius: 10px;
 }

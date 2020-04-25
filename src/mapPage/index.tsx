@@ -12,7 +12,6 @@ function MapPage() {
             <div className="mapSection">
                 <MapSection groceryLocs={groceryLocs} setGroceryLocs={setGroceryLocs}/>
             </div>
-
         </div>
     )
 }

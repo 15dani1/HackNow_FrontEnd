@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import axios from 'axios';
 
 
-export default function MapSection(props : any) {
+export default function MapSection(props: any) {
     const mapSettings = {
         lng: 29.647377,
         lat: -82.351269,
-        zoom: 17
+        zoom: 12
     };
     const Map = ReactMapboxGl({
         accessToken: "pk.eyJ1IjoiMTVkYW5pMSIsImEiOiJjazlmNWdvdG4wMGVvM2xubjdqcTducXM1In0.H7cu4oj3nkFtR23KeFEliQ"
     });
     Map.defaultProps.center = [mapSettings.lat, mapSettings.lng];
     Map.defaultProps.zoom = [mapSettings.zoom];
+
     useEffect(() => {
         axios({
             'method': 'GET',
@@ -29,6 +30,7 @@ export default function MapSection(props : any) {
             console.log(res.data['resourceSets'][0]['resources']);
             props.setGroceryLocs(res.data['resourceSets'][0]['resources']);
         })
+        // eslint-disable-next-line
     }, []);
 
     //https://medium.com/better-programming/animate-map-markers-using-mapbox-react-hooks-2f646a6301e
