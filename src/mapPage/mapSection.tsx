@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
-import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
+import React, { useEffect, useState } from 'react';
+import ReactMapboxGl, { Layer, Feature, ZoomControl, Popup } from "react-mapbox-gl";
 import axios from 'axios';
-
+import ProgressModal from './progressModal'
 
 export default function MapSection(props: any) {
+    const [progressModalShow, setProgressModal] = useState(false);
+    function openProgress() {
+        setProgressModal(true);
+    }
     const mapSettings = {
         lng: 29.647377,
         lat: -82.351269,
@@ -32,10 +36,10 @@ export default function MapSection(props: any) {
         })
         // eslint-disable-next-line
     }, []);
-
     //https://medium.com/better-programming/animate-map-markers-using-mapbox-react-hooks-2f646a6301e
     return (
         <div>
+            <ProgressModal modalShow = {progressModalShow}/>
             <Map
                 //Below comment needed to supress the style error (just a semantical issue)
                 // eslint-disable-next-line
@@ -51,7 +55,11 @@ export default function MapSection(props: any) {
                     id="marker"
                     layout={{ "icon-image": "vienna-u-bahn" }}
                 >
-                    {props.groceryLocs.map(grocery => <Feature coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
+                    {props.groceryLocs.map(grocery =>
+                        <Feature
+                            onClick={openProgress}
+                            coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]}
+                        />)}
                 </Layer>
             </Map>
         </div>
