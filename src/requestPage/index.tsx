@@ -32,9 +32,8 @@ function RequestPage(props) {
             }
         }, {
             headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
+              'Content-Type': 'application/json'
+        }}).then(res => {
             console.log(res);
             message.success("Submitted request!")
         });
@@ -68,7 +67,10 @@ function RequestPage(props) {
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit" style={{ ...buttonStyle }}>
-                        Add To Cart
+                        Submit
+                    </Button>
+                    <Button onClick={handleSubmit} type="primary">
+                        All done!
                     </Button>
                 </Form.Item>
             </Form>
@@ -81,15 +83,12 @@ function RequestPage(props) {
                             style={{ margin: '10px' }}
                         >
                             <h1 style={{ margin: 'auto', float: 'left' }}>{shop.item}</h1>
-                            <Button style={{ float: 'right' }} onClick={() => handleRemoveItem(shop.item)} type='danger'>Delete</Button>
+                            <Button style={{ float: 'right' }} onClick={() =>handleRemoveItem(shop.item)} type='danger'>Delete</Button>
                         </Card>
                     )
                     )
                 }
             </div>
-            {shoppingList.length !== 0 ? <Button onClick={handleSubmit} type="primary">
-                All done!
-                    </Button> : null}
         </div>
     )
 }
