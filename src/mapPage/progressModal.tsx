@@ -10,19 +10,23 @@ export default function ProgressModal(props: any) {
                 title="Tracking your groceries!"
                 visible={props.modalShow}
                 // onOk={showModal}
+                footer=""
                 width={"75%"}
 
             // onCancel={showModal}
             >
                 <Steps current={step}>
-                    <Step title="Enter items to deliver" description="This is a description." >
+                    <Step title="Delivery Items" description="*ADDRESS GOES HERE*" >
                         testing
                         
                     </Step>
-                    <Step title="In Progress" subTitle="Left 00:00:08" description="This is a description." />
-                    <Step title="Waiting" description="This is a description." />
+                    <Step title="Picking Up Items"/>
+                    <Step title="Driving to Drop Off"/>
+                    <Step title="Delivered!"/>
                 </Steps>
-                <PageHeader
+                {(props.driver===true && step<4)?<Button style={{margin:'10px'}} onClick={()=>setStep(step+1)}>Done With Step</Button>:null}
+                
+                {/* <PageHeader
                     className="site-page-header"
                     title={step == 0 ? "Enter items" : (step == 1 ? "Awaiting delivery" : null)}
                 />
@@ -67,7 +71,7 @@ export default function ProgressModal(props: any) {
                                 )
                                 }
                             </Form.List>
-                        </Form>) : null}
+                        </Form>) : null} */}
             </Modal>
         </div>
     )

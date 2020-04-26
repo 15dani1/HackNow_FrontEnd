@@ -26,7 +26,8 @@ export default function LeaderModal(props: any) {
     ]
     useEffect(() => {
         for (let i = 0; i < 100; i++) {
-            let ranNumDeliveries = Math.floor(Math.random() * 100);
+            // let ranNumDeliveries = Math.floor(Math.random() * 100);
+            let ranNumDeliveries = 100-i
             demoLeaderBoard.push({ id: i + 1, name: "John Doe", deliveries: ranNumDeliveries })
         }
     }, []);
