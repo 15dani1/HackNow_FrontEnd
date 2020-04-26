@@ -56,7 +56,7 @@ export default function MapSection(props: any) {
                 {props.groceryLocs.map(grocery => grocery == props.selectedStore ? <Popup onMouseLeave={() => {}} onMouseEnter={() => {}} coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]}>
                         <Card
                         title={grocery.name}
-                        actions={[<Button icon={<CheckCircleOutlined />} onClick={() => setConfirmVisible(true)}/>]}
+                        actions={[<Button icon={<CheckCircleOutlined />} onClick={() => setProgressModal(true)}/>]}
                         >
                         {grocery.Address.formattedAddress}
                     </Card>

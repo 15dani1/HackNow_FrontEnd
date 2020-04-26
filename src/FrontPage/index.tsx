@@ -9,11 +9,27 @@ const FrontPage = () => {
     //const history = useHistory();
     //0 = frontpage, 1 = driverpage, 2 = requestpage
     const [page, setPage] = useState(0);
+    const [userType, setUserType] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [address, setAddress] = useState("")
+    const nextPage = () => {
+        if (page == 0) {
+            setPage(1)
+        }
+        else if (page == 1 && userType) {
+            setPage(2)
+        }
+        else if (page == 1 && !userType) {
+            setPage(3)
+        }
+    }
     function handleClickMapPage() {
+        setUserType(false);
         setPage(1);
         console.log(page);
     }
     function handleClickRequestPage() {
+        setUserType(true);
         setPage(2);
     }
     return (
