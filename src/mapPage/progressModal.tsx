@@ -26,6 +26,7 @@ export default function ProgressModal(props: any) {
                     className="site-page-header"
                     title={step == 0 ? "Enter items" : (step == 1 ? "Awaiting delivery" : null)}
                 />
+                Your address is {props.address}
                 {step == 0 ? (<Form>
                             <Form.List name="items">
                                 {(fields, {add, remove}) => (

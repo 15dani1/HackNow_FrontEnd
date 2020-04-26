@@ -2,16 +2,23 @@ import React, { useState } from 'react';
 import oldMan from "../images/oldMan.jpg"
 import youngDude from "../images/youngdude.jpg"
 import './frontpage.css';
-import { Card } from 'antd';
+import { Card, Input, Button, Modal, message } from 'antd';
 import MapPage from '../mapPage';
+import axios from 'axios';
 import RequestPage from '../requestPage';
+
+const { Search } = Input;
 const FrontPage = () => {
     //const history = useHistory();
     //0 = frontpage, 1 = driverpage, 2 = requestpage
     const [page, setPage] = useState(0);
     const [userType, setUserType] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [address, setAddress] = useState("")
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [inputName, setInputName] = useState("");
+    const [inputAddress, setInputAddress] = useState("");
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const nextPage = () => {
         if (page == 0) {
             setPage(1)
@@ -32,9 +39,80 @@ const FrontPage = () => {
         setUserType(true);
         setPage(2);
     }
+    const handleCreate = () => {
+        axios.post("http://localhost:5000/account", {
+            query: `mutation($phoneNumber: String!, $name: String!, $address: String!) {
+                createAccount(Name: $name, Address: $address, PhoneNumber: $phoneNumber){
+                    name
+                    address
+                    phoneNumber
+                }
+            }`,
+            variables: {
+                phoneNumber: phoneNumber,
+                address: inputAddress,
+                name: inputName
+            }
+        }, {
+            headers: {
+              'Content-Type': 'application/json'
+        }}).then(res => {
+            console.log(res);
+            setAddress(res.data.data.createAccount.address)
+            setName(res.data.data.createAccount.name)
+            setShowCreateModal(false);
+            message.success("Logged in!")
+        });
+    }
+    const handleLogin = () => {
+        axios.post("http://localhost:5000/account", {
+            query: `query($phoneNumber: String!) {
+                account(PhoneNumber: $phoneNumber){
+                    name
+                    address
+                    phoneNumber
+                }
+            }`,
+            variables: {
+                phoneNumber: phoneNumber
+            }
+        }, {
+            headers: {
+              'Content-Type': 'application/json'
+        }}).then(res => {
+            console.log(res.data)
+            setName(res.data.data.account.name);
+            setAddress(res.data.data.account.address);
+            res.data.data.account.address ? message.success("Logged in!") : setShowCreateModal(true);
+        });
+    }
     return (
         page === 0 ?
             <div>
+                <Modal
+                title="Create account"
+                visible={showCreateModal}
+                onOk={() => {}}
+                onCancel={() => {}}
+                footer={[
+                    <Button key="back" onClick={() => setShowCreateModal(false)}>
+                    Return
+                    </Button>,
+                    <Button key="submit" type="primary" onClick={handleCreate}>
+                    Create Account and Login
+                    </Button>,
+                ]}
+                width={"75%"}>
+                    <Input placeholder="Name"
+                        value={inputName} onChange={e => setInputName(e.target.value)}/>
+                    <Input placeholder="Address"
+                        value={inputAddress} onChange={e => setInputAddress(e.target.value)}/>
+                </Modal>
+                <Search placeholder="Phone number" enterButton="Submit"
+                    value={phoneNumber}
+                    onChange={e => setPhoneNumber(e.target.value)}
+                    onSearch={handleLogin}
+                />
                 <div className="card-div">
                     <Card className="card-css" hoverable={true} onClick={handleClickMapPage}>
                         <img className="image-Card-CSS" src={youngDude} alt="Graphic of young person" />
@@ -46,7 +124,7 @@ const FrontPage = () => {
                     </Card>
                 </div>
             </div >
-            : page === 1 ? <MapPage />
+            : page === 1 ? <MapPage address={address}/>
                 : <RequestPage />
 
     )
