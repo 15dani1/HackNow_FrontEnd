@@ -18,6 +18,7 @@ const FrontPage = () => {
     const [address, setAddress] = useState("");
     const [inputName, setInputName] = useState("");
     const [inputAddress, setInputAddress] = useState("");
+    const [storeAddress, setStoreAddress] = useState("");
     const [showCreateModal, setShowCreateModal] = useState(false);
     const nextPage = () => {
         if (page == 0) {
@@ -42,7 +43,7 @@ const FrontPage = () => {
     const handleCreate = () => {
         axios.post("http://localhost:5000/account", {
             query: `mutation($phoneNumber: String!, $name: String!, $address: String!) {
-                createAccount(Name: $name, Address: $address, PhoneNumber: $phoneNumber){
+                createRequest(Name: $name, Address: $address, PhoneNumber: $phoneNumber){
                     name
                     address
                     phoneNumber
@@ -124,8 +125,8 @@ const FrontPage = () => {
                     </Card>
                 </div>
             </div >
-            : page === 1 ? <MapPage address={address}/>
-                : <RequestPage />
+            : page === 1 ? <MapPage setStoreAddress={setStoreAddress} storeAddress={storeAddress} address={address}/>
+                : <RequestPage storeAddress={storeAddress} phoneNumber={phoneNumber}/>
 
     )
 }

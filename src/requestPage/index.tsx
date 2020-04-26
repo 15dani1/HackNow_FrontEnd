@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Select, Card } from 'antd';
+import { Form, Input, Button, Select, Card, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-function RequestPage() {
+import axios from 'axios';
+
+function RequestPage(props) {
     //SHOPPING LIST IS THE ARRAY 
     //Structure is [{item: "milk"},{item: "eggs"},{item: "chicken"}]
     const [shoppingList, setShoppingList] = useState([]);
@@ -10,6 +12,32 @@ function RequestPage() {
         setShoppingList(shoppingList.concat({ item: values.cartItem }));
         console.log(shoppingList);
     };
+    const handleSubmit = () => {
+        axios.post("http://localhost:5000/account", {
+            query: `mutation($phoneNumber: String!, $storeAddress: String!, $items: String!) {
+                createRequest(StoreAddress: $storeAddress, PhoneNumber: $phoneNumber, Items: $items){
+                    account {
+                        address
+                        name
+                        phoneNumber
+                    }
+                    storeAddress
+                    items
+                }
+            }`,
+            variables: {
+                phoneNumber: props.phoneNumber,
+                storeAddress: props.storeAddress,
+                items: shoppingList.map(a => a.item).join(",")
+            }
+        }, {
+            headers: {
+              'Content-Type': 'application/json'
+        }}).then(res => {
+            console.log(res);
+            message.success("Submitted request!")
+        });
+    }
     const handleRemoveItem = name => {
         setShoppingList(shoppingList.filter(item => item.item !== name))
     }
@@ -40,6 +68,9 @@ function RequestPage() {
                 <Form.Item>
                     <Button type="primary" htmlType="submit" style={{ ...buttonStyle }}>
                         Submit
+                    </Button>
+                    <Button onClick={handleSubmit} type="primary">
+                        All done!
                     </Button>
                 </Form.Item>
             </Form>
