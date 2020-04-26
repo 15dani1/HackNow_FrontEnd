@@ -42,7 +42,8 @@ export default function MapSection(props: any) {
     //https://medium.com/better-programming/animate-map-markers-using-mapbox-react-hooks-2f646a6301e
     return (
         <div>
-            <ProgressModal address={props.address} modalShow = {progressModalShow} driver={true}/>
+            <ProgressModal address={props.address} onCancel={() => setProgressModal(false)} modalShow = {progressModalShow} driver={true}/>
+            <Button onClick={() => setProgressModal(true)}>Show progress modal</Button>
             <Map
                 //Below comment needed to supress the style error (just a semantical issue)
                 // eslint-disable-next-line
@@ -56,7 +57,7 @@ export default function MapSection(props: any) {
                 {props.groceryLocs.map(grocery => grocery == props.selectedStore ? <Popup onMouseLeave={() => {}} onMouseEnter={() => {}} coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]}>
                         <Card
                         title={grocery.name}
-                        actions={[<Button icon={<CheckCircleOutlined />} onClick={() => setProgressModal(true)}/>]}
+                        actions={[<Button icon={<CheckCircleOutlined />} onClick={() => props.nextPage()}/>]}
                         >
                         {grocery.Address.formattedAddress}
                     </Card>

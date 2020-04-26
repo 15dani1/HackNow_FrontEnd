@@ -11,7 +11,7 @@ function MapPage(props) {
                 <CardSection selectedStore={props.storeAddress} setSelectedStore={props.setStoreAddress} groceryLocs={groceryLocs}/>
             </div>
             <div className="mapSection">
-                <MapSection address={props.address} selectedStore={props.storeAddress} setSelectedStore={props.setStoreAddress} groceryLocs={groceryLocs} setGroceryLocs={setGroceryLocs}/>
+                <MapSection nextPage={props.nextPage} address={props.address} selectedStore={props.storeAddress} setSelectedStore={props.setStoreAddress} groceryLocs={groceryLocs} setGroceryLocs={setGroceryLocs}/>
             </div>
         </div>
     )

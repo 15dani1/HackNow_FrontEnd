@@ -6,6 +6,7 @@ import { Card, Input, Button, Modal, message } from 'antd';
 import MapPage from '../mapPage';
 import axios from 'axios';
 import RequestPage from '../requestPage';
+import ViewRequestPage from '../viewRequestPage';
 
 const { Search } = Input;
 const FrontPage = () => {
@@ -38,7 +39,7 @@ const FrontPage = () => {
     }
     function handleClickRequestPage() {
         setUserType(true);
-        setPage(2);
+        setPage(1);
     }
     const handleCreate = () => {
         axios.post("http://localhost:5000/account", {
@@ -129,8 +130,9 @@ const FrontPage = () => {
                     </Card>
                 </div>
             </div >
-            : page === 1 ? <MapPage setStoreAddress={setStoreAddress} storeAddress={storeAddress} address={address} />
-                : <RequestPage storeAddress={storeAddress} phoneNumber={phoneNumber} />
+            : page === 1 ? <MapPage nextPage={nextPage} setStoreAddress={setStoreAddress} storeAddress={storeAddress} address={address} />
+                : page === 2 ? <RequestPage storeAddress={storeAddress} phoneNumber={phoneNumber} />
+                    : <ViewRequestPage storeAddress={storeAddress}/>
 
     )
 }
