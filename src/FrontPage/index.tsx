@@ -56,8 +56,9 @@ const FrontPage = () => {
             }
         }, {
             headers: {
-              'Content-Type': 'application/json'
-        }}).then(res => {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
             console.log(res);
             setAddress(res.data.data.createAccount.address)
             setName(res.data.data.createAccount.name)
@@ -79,8 +80,9 @@ const FrontPage = () => {
             }
         }, {
             headers: {
-              'Content-Type': 'application/json'
-        }}).then(res => {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
             console.log(res.data)
             setName(res.data.data.account.name);
             setAddress(res.data.data.account.address);
@@ -89,27 +91,29 @@ const FrontPage = () => {
     }
     return (
         page === 0 ?
-            <div>
+            <div style={{ textAlign: 'center' }}>
                 <Modal
-                title="Create account"
-                visible={showCreateModal}
-                onOk={() => {}}
-                onCancel={() => {}}
-                footer={[
-                    <Button key="back" onClick={() => setShowCreateModal(false)}>
-                    Return
+                    title="Create account"
+                    visible={showCreateModal}
+                    onOk={() => { }}
+                    onCancel={() => { }}
+                    footer={[
+                        <Button key="back" onClick={() => setShowCreateModal(false)}>
+                            Return
                     </Button>,
-                    <Button key="submit" type="primary" onClick={handleCreate}>
-                    Create Account and Login
+                        <Button key="submit" type="primary" onClick={handleCreate}>
+                            Create Account and Login
                     </Button>,
-                ]}
-                width={"75%"}>
+                    ]}
+                    width={"75%"}>
                     <Input placeholder="Name"
-                        value={inputName} onChange={e => setInputName(e.target.value)}/>
+                        style={{ marginBottom: '10px' }}
+                        value={inputName} onChange={e => setInputName(e.target.value)} />
                     <Input placeholder="Address"
-                        value={inputAddress} onChange={e => setInputAddress(e.target.value)}/>
+                        value={inputAddress} onChange={e => setInputAddress(e.target.value)} />
                 </Modal>
                 <Search placeholder="Phone number" enterButton="Submit"
+                    style={{ width: '66%', marginTop: '20px', borderRadius: '30px' }}
                     value={phoneNumber}
                     onChange={e => setPhoneNumber(e.target.value)}
                     onSearch={handleLogin}
@@ -125,8 +129,8 @@ const FrontPage = () => {
                     </Card>
                 </div>
             </div >
-            : page === 1 ? <MapPage setStoreAddress={setStoreAddress} storeAddress={storeAddress} address={address}/>
-                : <RequestPage storeAddress={storeAddress} phoneNumber={phoneNumber}/>
+            : page === 1 ? <MapPage setStoreAddress={setStoreAddress} storeAddress={storeAddress} address={address} />
+                : <RequestPage storeAddress={storeAddress} phoneNumber={phoneNumber} />
 
     )
 }
