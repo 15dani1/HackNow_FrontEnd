@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Select, Card } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 function RequestPage() {
+    //SHOPPING LIST IS THE ARRAY 
+    //Structure is [{item: "milk"},{item: "eggs"},{item: "chicken"}]
     const [shoppingList, setShoppingList] = useState([]);
     const onFinish = values => {
         //shoppingList.push({ item: values.cartItem });
         setShoppingList(shoppingList.concat({ item: values.cartItem }));
         console.log(shoppingList);
     };
-    // const handleRemoveItem = (e) => {
-    //     const name = e.target.getAttribute("item")
-    //     setShoppingList(shoppingList.filter(item => item.name !== name));
-    // };
     const handleRemoveItem = name => {
         setShoppingList(shoppingList.filter(item => item.item !== name))
     }
