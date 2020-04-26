@@ -8,6 +8,13 @@ function RequestPage() {
         setShoppingList(shoppingList.concat({ item: values.cartItem }));
         console.log(shoppingList);
     };
+    // const handleRemoveItem = (e) => {
+    //     const name = e.target.getAttribute("item")
+    //     setShoppingList(shoppingList.filter(item => item.name !== name));
+    // };
+    const handleRemoveItem = name => {
+        setShoppingList(shoppingList.filter(item => item.item !== name))
+    }
     const buttonStyle = { width: '100%', borderRadius: '100px' };
     // const searchStyle = { float: 'left', width: '2%', margin: '10px', borderRadius: '5px' };
     const searchStyle = {}
@@ -47,7 +54,7 @@ function RequestPage() {
                             style={{ margin: '10px' }}
                         >
                             <h1 style={{ margin: 'auto', float: 'left' }}>{shop.item}</h1>
-                            <Button style={{float:'right'}} onClick={() => console.log(shop)} type='danger'>Delete</Button>
+                            <Button style={{ float: 'right' }} onClick={() =>handleRemoveItem(shop.item)} type='danger'>Delete</Button>
                         </Card>
                     )
                     )
