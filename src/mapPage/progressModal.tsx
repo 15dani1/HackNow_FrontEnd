@@ -16,7 +16,7 @@ export default function ProgressModal(props: any) {
             // onCancel={showModal}
             >
                 <Steps current={step}>
-                    <Step title="Enter items to deliver" description="This is a description." >
+                    <Step title="Delivery Items" description="*ADDRESS GOES HERE*" >
                         testing
                         
                     </Step>
