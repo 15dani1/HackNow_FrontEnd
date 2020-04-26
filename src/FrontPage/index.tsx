@@ -44,7 +44,7 @@ const FrontPage = () => {
     const handleCreate = () => {
         axios.post("http://localhost:5000/account", {
             query: `mutation($phoneNumber: String!, $name: String!, $address: String!) {
-                createRequest(Name: $name, Address: $address, PhoneNumber: $phoneNumber){
+                createAccount(Name: $name, Address: $address, PhoneNumber: $phoneNumber){
                     name
                     address
                     phoneNumber

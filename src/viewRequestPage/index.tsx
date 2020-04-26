@@ -36,7 +36,7 @@ function ViewRequestPage(props) {
 
     return (
         <div style={{ paddingLeft: '10%', paddingRight: '10%', paddingTop: '5%', textAlign: 'center' }}>
-            {request.storeAddress}
+            {/* {request.storeAddress} */}
         </div>
     )
 }
