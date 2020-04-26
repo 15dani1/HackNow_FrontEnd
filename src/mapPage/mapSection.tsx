@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
-import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
+import React, { useEffect, useState } from 'react';
+import ReactMapboxGl, { Layer, Feature, Popup, ZoomControl } from "react-mapbox-gl";
+import { Card, Popover, Button, Popconfirm } from 'antd'
+import {CheckCircleOutlined} from '@ant-design/icons'
 import axios from 'axios';
 
 
@@ -9,6 +11,7 @@ export default function MapSection(props: any) {
         lat: -82.351269,
         zoom: 12
     };
+    const [confirmVisible, setConfirmVisible] = useState(false);
     const Map = ReactMapboxGl({
         accessToken: "pk.eyJ1IjoiMTVkYW5pMSIsImEiOiJjazlmNWdvdG4wMGVvM2xubjdqcTducXM1In0.H7cu4oj3nkFtR23KeFEliQ"
     });
@@ -46,12 +49,22 @@ export default function MapSection(props: any) {
                 }}
             >
                 <ZoomControl />
+                {props.groceryLocs.map(grocery => grocery == props.selectedStore ? <Popup onMouseLeave={() => {}} onMouseEnter={() => {}} coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]}>
+                        <Card
+                        title={grocery.name}
+                        actions={[<Button icon={<CheckCircleOutlined />} onClick={() => setConfirmVisible(true)}/>]}
+                        >
+                        {grocery.Address.formattedAddress}
+                    </Card>
+                </Popup> : null)}
                 <Layer
                     type="symbol"
                     id="marker"
                     layout={{ "icon-image": "vienna-u-bahn" }}
                 >
-                    {props.groceryLocs.map(grocery => <Feature coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
+                    {props.groceryLocs.map(grocery => <Feature 
+                    onClick={() => props.setSelectedStore(grocery)}
+                    coordinates={[grocery['geocodePoints'][0]['coordinates'][1], grocery['geocodePoints'][0]['coordinates'][0]]} />)}
                 </Layer>
             </Map>
         </div>
