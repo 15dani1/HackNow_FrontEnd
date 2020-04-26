@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import oldMan from "../images/oldMan.jpg"
 import youngDude from "../images/youngdude.jpg"
 import './frontpage.css';
-import { Card } from 'antd';
+import { Card, Input, Button } from 'antd';
 import MapPage from '../mapPage';
+import axios from 'axios';
 import RequestPage from '../requestPage';
+
+const { Search } = Input;
 const FrontPage = () => {
     //const history = useHistory();
     //0 = frontpage, 1 = driverpage, 2 = requestpage
     const [page, setPage] = useState(0);
     const [userType, setUserType] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [name, setName] = useState("");
     const [address, setAddress] = useState("")
     const nextPage = () => {
         if (page == 0) {
@@ -32,9 +36,35 @@ const FrontPage = () => {
         setUserType(true);
         setPage(2);
     }
+    const handleLogin = () => {
+        axios.post("http://localhost:5000/account", {
+            query: `query($phoneNumber: String!) {
+                account(PhoneNumber: $phoneNumber){
+                    name
+                    address
+                    phoneNumber
+                }
+            }`,
+            variables: {
+                phoneNumber: phoneNumber
+            }
+        }, {
+            headers: {
+              'Content-Type': 'application/json'
+        }}).then(res => {
+            console.log(res.data)
+            setName(res.data.data.account.name);
+            setAddress(res.data.data.account.address);
+        });
+    }
     return (
         page === 0 ?
             <div>
+                <Search placeholder="Phone number" enterButton="Submit"
+                    value={phoneNumber}
+                    onChange={e => setPhoneNumber(e.target.value)}
+                    onSearch={handleLogin}
+                />
                 <div className="card-div">
                     <Card className="card-css" hoverable={true} onClick={handleClickMapPage}>
                         <img className="image-Card-CSS" src={youngDude} alt="Graphic of young person" />
@@ -46,7 +76,7 @@ const FrontPage = () => {
                     </Card>
                 </div>
             </div >
-            : page === 1 ? <MapPage />
+            : page === 1 ? <MapPage address={address}/>
                 : <RequestPage />
 
     )

@@ -42,7 +42,7 @@ export default function MapSection(props: any) {
     //https://medium.com/better-programming/animate-map-markers-using-mapbox-react-hooks-2f646a6301e
     return (
         <div>
-            <ProgressModal modalShow = {progressModalShow}/>
+            <ProgressModal address={props.address} modalShow = {progressModalShow}/>
             <Map
                 //Below comment needed to supress the style error (just a semantical issue)
                 // eslint-disable-next-line

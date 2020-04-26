@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MapSection from './mapSection';
 import CardSection from './cardSection';
 import './mappage.css'
-function MapPage() {
+function MapPage(props) {
     const [groceryLocs, setGroceryLocs] = useState([]);
     const [selectedStore, setSelectedStore] = useState();
     return (
@@ -11,7 +11,7 @@ function MapPage() {
                 <CardSection selectedStore={selectedStore} setSelectedStore={setSelectedStore} groceryLocs={groceryLocs}/>
             </div>
             <div className="mapSection">
-                <MapSection selectedStore={selectedStore} setSelectedStore={setSelectedStore} groceryLocs={groceryLocs} setGroceryLocs={setGroceryLocs}/>
+                <MapSection address={props.address} selectedStore={selectedStore} setSelectedStore={setSelectedStore} groceryLocs={groceryLocs} setGroceryLocs={setGroceryLocs}/>
             </div>
         </div>
     )
